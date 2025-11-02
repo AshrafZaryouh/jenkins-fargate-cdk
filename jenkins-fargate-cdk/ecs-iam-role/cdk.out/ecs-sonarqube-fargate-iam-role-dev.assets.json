@@ -1,0 +1,20 @@
+{
+  "version": "20.0.0",
+  "files": {
+    "eaab5f698ca4b96dcecb0e79314aa60393f97bbf31c5f9cc7a1ad91e7cf71558": {
+      "source": {
+        "path": "ecs-sonarqube-fargate-iam-role-dev.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "681747700094-ap-northeast-2": {
+          "bucketName": "cdk-hnb659fds-assets-681747700094-ap-northeast-2",
+          "objectKey": "eaab5f698ca4b96dcecb0e79314aa60393f97bbf31c5f9cc7a1ad91e7cf71558.json",
+          "region": "ap-northeast-2",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::681747700094:role/cdk-hnb659fds-file-publishing-role-681747700094-ap-northeast-2"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

@@ -1,0 +1,1164 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree",
+        "constructInfo": {
+          "fqn": "constructs.Construct",
+          "version": "10.1.68"
+        }
+      },
+      "ecs-jenkins-fargate-dev": {
+        "id": "ecs-jenkins-fargate-dev",
+        "path": "ecs-jenkins-fargate-dev",
+        "children": {
+          "vpc": {
+            "id": "vpc",
+            "path": "ecs-jenkins-fargate-dev/vpc",
+            "children": {
+              "publicSubnet1": {
+                "id": "publicSubnet1",
+                "path": "ecs-jenkins-fargate-dev/vpc/publicSubnet1",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.32.1"
+                }
+              },
+              "publicSubnet2": {
+                "id": "publicSubnet2",
+                "path": "ecs-jenkins-fargate-dev/vpc/publicSubnet2",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.32.1"
+                }
+              },
+              "publicSubnet3": {
+                "id": "publicSubnet3",
+                "path": "ecs-jenkins-fargate-dev/vpc/publicSubnet3",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.32.1"
+                }
+              },
+              "privateSubnet1": {
+                "id": "privateSubnet1",
+                "path": "ecs-jenkins-fargate-dev/vpc/privateSubnet1",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.32.1"
+                }
+              },
+              "privateSubnet2": {
+                "id": "privateSubnet2",
+                "path": "ecs-jenkins-fargate-dev/vpc/privateSubnet2",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.32.1"
+                }
+              },
+              "privateSubnet3": {
+                "id": "privateSubnet3",
+                "path": "ecs-jenkins-fargate-dev/vpc/privateSubnet3",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.32.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.Resource",
+              "version": "2.32.1"
+            }
+          },
+          "ecs-security-group": {
+            "id": "ecs-security-group",
+            "path": "ecs-jenkins-fargate-dev/ecs-security-group",
+            "children": {
+              "from ecsjenkinsfargatedevalbsgjenkins235592CE:8080": {
+                "id": "from ecsjenkinsfargatedevalbsgjenkins235592CE:8080",
+                "path": "ecs-jenkins-fargate-dev/ecs-security-group/from ecsjenkinsfargatedevalbsgjenkins235592CE:8080",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupIngress",
+                  "aws:cdk:cloudformation:props": {
+                    "ipProtocol": "tcp",
+                    "description": "Allow from ALB",
+                    "fromPort": 8080,
+                    "groupId": "sg-03e2ce89a4343fbad",
+                    "sourceSecurityGroupId": {
+                      "Fn::GetAtt": [
+                        "albsgjenkinsF6F54C44",
+                        "GroupId"
+                      ]
+                    },
+                    "toPort": 8080
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroupIngress",
+                  "version": "2.32.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.Resource",
+              "version": "2.32.1"
+            }
+          },
+          "ecs-fargate-cluster": {
+            "id": "ecs-fargate-cluster",
+            "path": "ecs-jenkins-fargate-dev/ecs-fargate-cluster",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.Resource",
+              "version": "2.32.1"
+            }
+          },
+          "Efs": {
+            "id": "Efs",
+            "path": "ecs-jenkins-fargate-dev/Efs",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "ecs-jenkins-fargate-dev/Efs/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EFS::FileSystem",
+                  "aws:cdk:cloudformation:props": {
+                    "encrypted": true,
+                    "fileSystemTags": [
+                      {
+                        "key": "Name",
+                        "value": "ecs-jenkins-fargate-dev/Efs"
+                      }
+                    ],
+                    "performanceMode": "generalPurpose"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_efs.CfnFileSystem",
+                  "version": "2.32.1"
+                }
+              },
+              "EfsSecurityGroup": {
+                "id": "EfsSecurityGroup",
+                "path": "ecs-jenkins-fargate-dev/Efs/EfsSecurityGroup",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "ecs-jenkins-fargate-dev/Efs/EfsSecurityGroup/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
+                      "aws:cdk:cloudformation:props": {
+                        "groupDescription": "ecs-jenkins-fargate-dev/Efs/EfsSecurityGroup",
+                        "securityGroupEgress": [
+                          {
+                            "cidrIp": "0.0.0.0/0",
+                            "description": "Allow all outbound traffic by default",
+                            "ipProtocol": "-1"
+                          }
+                        ],
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "ecs-jenkins-fargate-dev/Efs"
+                          }
+                        ],
+                        "vpcId": "vpc-011a53131c38ccacf"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroup",
+                      "version": "2.32.1"
+                    }
+                  },
+                  "from ecsjenkinsfargatedevecsfargateserviceSecurityGroupFF0AFDD8:2049": {
+                    "id": "from ecsjenkinsfargatedevecsfargateserviceSecurityGroupFF0AFDD8:2049",
+                    "path": "ecs-jenkins-fargate-dev/Efs/EfsSecurityGroup/from ecsjenkinsfargatedevecsfargateserviceSecurityGroupFF0AFDD8:2049",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupIngress",
+                      "aws:cdk:cloudformation:props": {
+                        "ipProtocol": "tcp",
+                        "description": "Allow NFS from ECS Service",
+                        "fromPort": 2049,
+                        "groupId": {
+                          "Fn::GetAtt": [
+                            "EfsEfsSecurityGroup6F40EA3B",
+                            "GroupId"
+                          ]
+                        },
+                        "sourceSecurityGroupId": {
+                          "Fn::GetAtt": [
+                            "ecsfargateserviceSecurityGroupE3570E1C",
+                            "GroupId"
+                          ]
+                        },
+                        "toPort": 2049
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroupIngress",
+                      "version": "2.32.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.SecurityGroup",
+                  "version": "2.32.1"
+                }
+              },
+              "EfsMountTarget1": {
+                "id": "EfsMountTarget1",
+                "path": "ecs-jenkins-fargate-dev/Efs/EfsMountTarget1",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EFS::MountTarget",
+                  "aws:cdk:cloudformation:props": {
+                    "fileSystemId": {
+                      "Ref": "Efs9E8BF36B"
+                    },
+                    "securityGroups": [
+                      {
+                        "Fn::GetAtt": [
+                          "EfsEfsSecurityGroup6F40EA3B",
+                          "GroupId"
+                        ]
+                      }
+                    ],
+                    "subnetId": "subnet-0bc4e9f93301b84da"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_efs.CfnMountTarget",
+                  "version": "2.32.1"
+                }
+              },
+              "EfsMountTarget2": {
+                "id": "EfsMountTarget2",
+                "path": "ecs-jenkins-fargate-dev/Efs/EfsMountTarget2",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EFS::MountTarget",
+                  "aws:cdk:cloudformation:props": {
+                    "fileSystemId": {
+                      "Ref": "Efs9E8BF36B"
+                    },
+                    "securityGroups": [
+                      {
+                        "Fn::GetAtt": [
+                          "EfsEfsSecurityGroup6F40EA3B",
+                          "GroupId"
+                        ]
+                      }
+                    ],
+                    "subnetId": "subnet-087cb9b8623bccf4d"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_efs.CfnMountTarget",
+                  "version": "2.32.1"
+                }
+              },
+              "EfsMountTarget3": {
+                "id": "EfsMountTarget3",
+                "path": "ecs-jenkins-fargate-dev/Efs/EfsMountTarget3",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EFS::MountTarget",
+                  "aws:cdk:cloudformation:props": {
+                    "fileSystemId": {
+                      "Ref": "Efs9E8BF36B"
+                    },
+                    "securityGroups": [
+                      {
+                        "Fn::GetAtt": [
+                          "EfsEfsSecurityGroup6F40EA3B",
+                          "GroupId"
+                        ]
+                      }
+                    ],
+                    "subnetId": "subnet-00109d9cbdcb6ba21"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_efs.CfnMountTarget",
+                  "version": "2.32.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_efs.FileSystem",
+              "version": "2.32.1"
+            }
+          },
+          "task-execution-role": {
+            "id": "task-execution-role",
+            "path": "ecs-jenkins-fargate-dev/task-execution-role",
+            "children": {
+              "Policy": {
+                "id": "Policy",
+                "path": "ecs-jenkins-fargate-dev/task-execution-role/Policy",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "ecs-jenkins-fargate-dev/task-execution-role/Policy/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                      "aws:cdk:cloudformation:props": {
+                        "policyDocument": {
+                          "Statement": [
+                            {
+                              "Action": [
+                                "ecr:BatchCheckLayerAvailability",
+                                "ecr:GetDownloadUrlForLayer",
+                                "ecr:BatchGetImage"
+                              ],
+                              "Effect": "Allow",
+                              "Resource": {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    "arn:",
+                                    {
+                                      "Ref": "AWS::Partition"
+                                    },
+                                    ":ecr:ap-northeast-2:681747700094:repository/cdk-hnb659fds-container-assets-681747700094-ap-northeast-2"
+                                  ]
+                                ]
+                              }
+                            },
+                            {
+                              "Action": "ecr:GetAuthorizationToken",
+                              "Effect": "Allow",
+                              "Resource": "*"
+                            },
+                            {
+                              "Action": [
+                                "logs:CreateLogStream",
+                                "logs:PutLogEvents"
+                              ],
+                              "Effect": "Allow",
+                              "Resource": {
+                                "Fn::GetAtt": [
+                                  "loggroup98B39ABC",
+                                  "Arn"
+                                ]
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "policyName": "taskexecutionrolePolicy68CA3FD9",
+                        "roles": [
+                          {
+                            "Fn::Select": [
+                              1,
+                              {
+                                "Fn::Split": [
+                                  "/",
+                                  {
+                                    "Fn::Select": [
+                                      5,
+                                      {
+                                        "Fn::Split": [
+                                          ":",
+                                          "arn:aws:iam::681747700094:role/JenkinsECSFargateTaskExecutionRole"
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                      "version": "2.32.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Policy",
+                  "version": "2.32.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.Resource",
+              "version": "2.32.1"
+            }
+          },
+          "task-role": {
+            "id": "task-role",
+            "path": "ecs-jenkins-fargate-dev/task-role",
+            "children": {
+              "Policy": {
+                "id": "Policy",
+                "path": "ecs-jenkins-fargate-dev/task-role/Policy",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "ecs-jenkins-fargate-dev/task-role/Policy/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                      "aws:cdk:cloudformation:props": {
+                        "policyDocument": {
+                          "Statement": [
+                            {
+                              "Action": [
+                                "elasticfilesystem:ClientRootAccess",
+                                "elasticfilesystem:ClientWrite",
+                                "elasticfilesystem:ClientMount",
+                                "elasticfilesystem:DescribeMountTargets"
+                              ],
+                              "Effect": "Allow",
+                              "Resource": {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    "arn:aws:elasticfilesystem:ap-northeast-2:681747700094:file-system/",
+                                    {
+                                      "Ref": "Efs9E8BF36B"
+                                    }
+                                  ]
+                                ]
+                              }
+                            },
+                            {
+                              "Action": [
+                                "ssmmessages:CreateControlChannel",
+                                "ssmmessages:CreateDataChannel",
+                                "ssmmessages:OpenControlChannel",
+                                "ssmmessages:OpenDataChannel"
+                              ],
+                              "Effect": "Allow",
+                              "Resource": "*"
+                            },
+                            {
+                              "Action": "logs:DescribeLogGroups",
+                              "Effect": "Allow",
+                              "Resource": "*"
+                            },
+                            {
+                              "Action": [
+                                "logs:CreateLogStream",
+                                "logs:DescribeLogStreams",
+                                "logs:PutLogEvents"
+                              ],
+                              "Effect": "Allow",
+                              "Resource": "*"
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "policyName": "taskrolePolicyFA6CED8E",
+                        "roles": [
+                          {
+                            "Fn::Select": [
+                              1,
+                              {
+                                "Fn::Split": [
+                                  "/",
+                                  {
+                                    "Fn::Select": [
+                                      5,
+                                      {
+                                        "Fn::Split": [
+                                          ":",
+                                          "arn:aws:iam::681747700094:role/JenkinsECSFargateDefaultTaskRole"
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                      "version": "2.32.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Policy",
+                  "version": "2.32.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.Resource",
+              "version": "2.32.1"
+            }
+          },
+          "fargate-task-definition": {
+            "id": "fargate-task-definition",
+            "path": "ecs-jenkins-fargate-dev/fargate-task-definition",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "ecs-jenkins-fargate-dev/fargate-task-definition/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ECS::TaskDefinition",
+                  "aws:cdk:cloudformation:props": {
+                    "containerDefinitions": [
+                      {
+                        "cpu": 1024,
+                        "essential": true,
+                        "image": {
+                          "Fn::Sub": "681747700094.dkr.ecr.ap-northeast-2.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-681747700094-ap-northeast-2:537d54b4c9805fded21798400b36cf6fe5c5ad27a46d4d53465465996827dff4"
+                        },
+                        "memoryReservation": 1024,
+                        "mountPoints": [
+                          {
+                            "containerPath": "/var/jenkins_home",
+                            "readOnly": false,
+                            "sourceVolume": "efs-volume"
+                          }
+                        ],
+                        "name": "jenkins-container",
+                        "portMappings": [
+                          {
+                            "containerPort": 8080,
+                            "hostPort": 8080,
+                            "protocol": "tcp"
+                          }
+                        ],
+                        "logConfiguration": {
+                          "logDriver": "awslogs",
+                          "options": {
+                            "awslogs-group": {
+                              "Ref": "loggroup98B39ABC"
+                            },
+                            "awslogs-stream-prefix": "app",
+                            "awslogs-region": "ap-northeast-2"
+                          }
+                        }
+                      }
+                    ],
+                    "cpu": "1024",
+                    "executionRoleArn": "arn:aws:iam::681747700094:role/JenkinsECSFargateTaskExecutionRole",
+                    "family": "jenkins-task",
+                    "memory": "2048",
+                    "networkMode": "awsvpc",
+                    "requiresCompatibilities": [
+                      "FARGATE"
+                    ],
+                    "taskRoleArn": "arn:aws:iam::681747700094:role/JenkinsECSFargateDefaultTaskRole",
+                    "volumes": [
+                      {
+                        "name": "efs-volume",
+                        "efsVolumeConfiguration": {
+                          "filesystemId": {
+                            "Ref": "Efs9E8BF36B"
+                          },
+                          "authorizationConfig": {
+                            "accessPointId": {
+                              "Ref": "AccessPointE936DE82"
+                            },
+                            "iam": "ENABLED"
+                          },
+                          "transitEncryption": "ENABLED"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ecs.CfnTaskDefinition",
+                  "version": "2.32.1"
+                }
+              },
+              "container-restapi": {
+                "id": "container-restapi",
+                "path": "ecs-jenkins-fargate-dev/fargate-task-definition/container-restapi",
+                "children": {
+                  "AssetImage": {
+                    "id": "AssetImage",
+                    "path": "ecs-jenkins-fargate-dev/fargate-task-definition/container-restapi/AssetImage",
+                    "children": {
+                      "Staging": {
+                        "id": "Staging",
+                        "path": "ecs-jenkins-fargate-dev/fargate-task-definition/container-restapi/AssetImage/Staging",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.AssetStaging",
+                          "version": "2.32.1"
+                        }
+                      },
+                      "Repository": {
+                        "id": "Repository",
+                        "path": "ecs-jenkins-fargate-dev/fargate-task-definition/container-restapi/AssetImage/Repository",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ecr.RepositoryBase",
+                          "version": "2.32.1"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ecr_assets.DockerImageAsset",
+                      "version": "2.32.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ecs.ContainerDefinition",
+                  "version": "2.32.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ecs.TaskDefinition",
+              "version": "2.32.1"
+            }
+          },
+          "AccessPoint": {
+            "id": "AccessPoint",
+            "path": "ecs-jenkins-fargate-dev/AccessPoint",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "ecs-jenkins-fargate-dev/AccessPoint/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EFS::AccessPoint",
+                  "aws:cdk:cloudformation:props": {
+                    "fileSystemId": {
+                      "Ref": "Efs9E8BF36B"
+                    },
+                    "rootDirectory": {}
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_efs.CfnAccessPoint",
+                  "version": "2.32.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_efs.AccessPoint",
+              "version": "2.32.1"
+            }
+          },
+          "loggroup": {
+            "id": "loggroup",
+            "path": "ecs-jenkins-fargate-dev/loggroup",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "ecs-jenkins-fargate-dev/loggroup/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Logs::LogGroup",
+                  "aws:cdk:cloudformation:props": {
+                    "logGroupName": "jenkins",
+                    "retentionInDays": 14
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_logs.CfnLogGroup",
+                  "version": "2.32.1"
+                }
+              },
+              "Policy": {
+                "id": "Policy",
+                "path": "ecs-jenkins-fargate-dev/loggroup/Policy",
+                "children": {
+                  "ResourcePolicy": {
+                    "id": "ResourcePolicy",
+                    "path": "ecs-jenkins-fargate-dev/loggroup/Policy/ResourcePolicy",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Logs::ResourcePolicy",
+                      "aws:cdk:cloudformation:props": {
+                        "policyDocument": {
+                          "Fn::Join": [
+                            "",
+                            [
+                              "{\"Statement\":[{\"Action\":[\"logs:CreateLogStream\",\"logs:PutLogEvents\"],\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"",
+                              {
+                                "Fn::Select": [
+                                  4,
+                                  {
+                                    "Fn::Split": [
+                                      ":",
+                                      "arn:aws:iam::681747700094:role/JenkinsECSFargateTaskExecutionRole"
+                                    ]
+                                  }
+                                ]
+                              },
+                              "\"},\"Resource\":\"",
+                              {
+                                "Fn::GetAtt": [
+                                  "loggroup98B39ABC",
+                                  "Arn"
+                                ]
+                              },
+                              "\"}],\"Version\":\"2012-10-17\"}"
+                            ]
+                          ]
+                        },
+                        "policyName": "ecsjenkinsfargatedevloggroupPolicy9DF2978E"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_logs.CfnResourcePolicy",
+                      "version": "2.32.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_logs.ResourcePolicy",
+                  "version": "2.32.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_logs.LogGroup",
+              "version": "2.32.1"
+            }
+          },
+          "ecs-fargate-service": {
+            "id": "ecs-fargate-service",
+            "path": "ecs-jenkins-fargate-dev/ecs-fargate-service",
+            "children": {
+              "Service": {
+                "id": "Service",
+                "path": "ecs-jenkins-fargate-dev/ecs-fargate-service/Service",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ECS::Service",
+                  "aws:cdk:cloudformation:props": {
+                    "cluster": "devops-fargate-dev",
+                    "deploymentConfiguration": {
+                      "maximumPercent": 200,
+                      "minimumHealthyPercent": 100
+                    },
+                    "enableEcsManagedTags": false,
+                    "enableExecuteCommand": true,
+                    "healthCheckGracePeriodSeconds": 0,
+                    "launchType": "FARGATE",
+                    "loadBalancers": [
+                      {
+                        "targetGroupArn": {
+                          "Ref": "albhttpslistenerec2servicetargetGroup679226C2"
+                        },
+                        "containerName": "jenkins-container",
+                        "containerPort": 8080
+                      }
+                    ],
+                    "networkConfiguration": {
+                      "awsvpcConfiguration": {
+                        "assignPublicIp": "DISABLED",
+                        "subnets": [
+                          "subnet-0bc4e9f93301b84da",
+                          "subnet-087cb9b8623bccf4d",
+                          "subnet-00109d9cbdcb6ba21"
+                        ],
+                        "securityGroups": [
+                          {
+                            "Fn::GetAtt": [
+                              "ecsfargateserviceSecurityGroupE3570E1C",
+                              "GroupId"
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "serviceName": "jenkins",
+                    "taskDefinition": {
+                      "Ref": "fargatetaskdefinitionE6399C98"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ecs.CfnService",
+                  "version": "2.32.1"
+                }
+              },
+              "SecurityGroup": {
+                "id": "SecurityGroup",
+                "path": "ecs-jenkins-fargate-dev/ecs-fargate-service/SecurityGroup",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "ecs-jenkins-fargate-dev/ecs-fargate-service/SecurityGroup/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
+                      "aws:cdk:cloudformation:props": {
+                        "groupDescription": "ecs-jenkins-fargate-dev/ecs-fargate-service/SecurityGroup",
+                        "securityGroupEgress": [
+                          {
+                            "cidrIp": "0.0.0.0/0",
+                            "description": "Allow all outbound traffic by default",
+                            "ipProtocol": "-1"
+                          }
+                        ],
+                        "vpcId": "vpc-011a53131c38ccacf"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroup",
+                      "version": "2.32.1"
+                    }
+                  },
+                  "from ecsjenkinsfargatedevalbsgjenkins235592CE:8080": {
+                    "id": "from ecsjenkinsfargatedevalbsgjenkins235592CE:8080",
+                    "path": "ecs-jenkins-fargate-dev/ecs-fargate-service/SecurityGroup/from ecsjenkinsfargatedevalbsgjenkins235592CE:8080",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupIngress",
+                      "aws:cdk:cloudformation:props": {
+                        "ipProtocol": "tcp",
+                        "description": "Load balancer to target",
+                        "fromPort": 8080,
+                        "groupId": {
+                          "Fn::GetAtt": [
+                            "ecsfargateserviceSecurityGroupE3570E1C",
+                            "GroupId"
+                          ]
+                        },
+                        "sourceSecurityGroupId": {
+                          "Fn::GetAtt": [
+                            "albsgjenkinsF6F54C44",
+                            "GroupId"
+                          ]
+                        },
+                        "toPort": 8080
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroupIngress",
+                      "version": "2.32.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.SecurityGroup",
+                  "version": "2.32.1"
+                }
+              },
+              "ScalingRole": {
+                "id": "ScalingRole",
+                "path": "ecs-jenkins-fargate-dev/ecs-fargate-service/ScalingRole",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.32.1"
+                }
+              },
+              "TaskCount": {
+                "id": "TaskCount",
+                "path": "ecs-jenkins-fargate-dev/ecs-fargate-service/TaskCount",
+                "children": {
+                  "Target": {
+                    "id": "Target",
+                    "path": "ecs-jenkins-fargate-dev/ecs-fargate-service/TaskCount/Target",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "ecs-jenkins-fargate-dev/ecs-fargate-service/TaskCount/Target/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::ApplicationAutoScaling::ScalableTarget",
+                          "aws:cdk:cloudformation:props": {
+                            "maxCapacity": 1,
+                            "minCapacity": 1,
+                            "resourceId": {
+                              "Fn::Join": [
+                                "",
+                                [
+                                  "service/devops-fargate-dev/",
+                                  {
+                                    "Fn::GetAtt": [
+                                      "ecsfargateserviceServiceE3D29B82",
+                                      "Name"
+                                    ]
+                                  }
+                                ]
+                              ]
+                            },
+                            "roleArn": {
+                              "Fn::Join": [
+                                "",
+                                [
+                                  "arn:",
+                                  {
+                                    "Ref": "AWS::Partition"
+                                  },
+                                  ":iam::681747700094:role/aws-service-role/ecs.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_ECSService"
+                                ]
+                              ]
+                            },
+                            "scalableDimension": "ecs:service:DesiredCount",
+                            "serviceNamespace": "ecs"
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_applicationautoscaling.CfnScalableTarget",
+                          "version": "2.32.1"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_applicationautoscaling.ScalableTarget",
+                      "version": "2.32.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ecs.ScalableTaskCount",
+                  "version": "2.32.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ecs.FargateService",
+              "version": "2.32.1"
+            }
+          },
+          "albsg-jenkins": {
+            "id": "albsg-jenkins",
+            "path": "ecs-jenkins-fargate-dev/albsg-jenkins",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "ecs-jenkins-fargate-dev/albsg-jenkins/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
+                  "aws:cdk:cloudformation:props": {
+                    "groupDescription": "ALB security group for jenkins Service",
+                    "groupName": "albsg-jenkins",
+                    "securityGroupEgress": [
+                      {
+                        "cidrIp": "0.0.0.0/0",
+                        "description": "Allow all outbound traffic by default",
+                        "ipProtocol": "-1"
+                      }
+                    ],
+                    "securityGroupIngress": [
+                      {
+                        "cidrIp": "0.0.0.0/0",
+                        "ipProtocol": "tcp",
+                        "fromPort": 80,
+                        "toPort": 80,
+                        "description": "Allow any"
+                      }
+                    ],
+                    "vpcId": "vpc-011a53131c38ccacf"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroup",
+                  "version": "2.32.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ec2.SecurityGroup",
+              "version": "2.32.1"
+            }
+          },
+          "alb": {
+            "id": "alb",
+            "path": "ecs-jenkins-fargate-dev/alb",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "ecs-jenkins-fargate-dev/alb/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+                  "aws:cdk:cloudformation:props": {
+                    "loadBalancerAttributes": [
+                      {
+                        "key": "deletion_protection.enabled",
+                        "value": "false"
+                      },
+                      {
+                        "key": "idle_timeout.timeout_seconds",
+                        "value": "30"
+                      }
+                    ],
+                    "name": "alb-jenkins",
+                    "scheme": "internet-facing",
+                    "securityGroups": [
+                      {
+                        "Fn::GetAtt": [
+                          "albsgjenkinsF6F54C44",
+                          "GroupId"
+                        ]
+                      }
+                    ],
+                    "subnets": [
+                      "subnet-0e89cb4d7673696dd",
+                      "subnet-04c9c8e7a35e8652c",
+                      "subnet-04cfddbfd8e443f61"
+                    ],
+                    "type": "application"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.CfnLoadBalancer",
+                  "version": "2.32.1"
+                }
+              },
+              "https-listener": {
+                "id": "https-listener",
+                "path": "ecs-jenkins-fargate-dev/alb/https-listener",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "ecs-jenkins-fargate-dev/alb/https-listener/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::Listener",
+                      "aws:cdk:cloudformation:props": {
+                        "defaultActions": [
+                          {
+                            "type": "forward",
+                            "targetGroupArn": {
+                              "Ref": "albhttpslistenerec2servicetargetGroup679226C2"
+                            }
+                          }
+                        ],
+                        "loadBalancerArn": {
+                          "Ref": "alb8A8B13C2"
+                        },
+                        "port": 80,
+                        "protocol": "HTTP"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.CfnListener",
+                      "version": "2.32.1"
+                    }
+                  },
+                  "ec2-service-targetGroup": {
+                    "id": "ec2-service-targetGroup",
+                    "path": "ecs-jenkins-fargate-dev/alb/https-listener/ec2-service-targetGroup",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "ecs-jenkins-fargate-dev/alb/https-listener/ec2-service-targetGroup/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+                          "aws:cdk:cloudformation:props": {
+                            "healthCheckIntervalSeconds": 31,
+                            "healthCheckPath": "/login",
+                            "healthCheckTimeoutSeconds": 30,
+                            "healthyThresholdCount": 2,
+                            "name": "tg-jenkins",
+                            "port": 8080,
+                            "protocol": "HTTP",
+                            "targetGroupAttributes": [
+                              {
+                                "key": "deregistration_delay.timeout_seconds",
+                                "value": "15"
+                              },
+                              {
+                                "key": "stickiness.enabled",
+                                "value": "false"
+                              }
+                            ],
+                            "targetType": "ip",
+                            "unhealthyThresholdCount": 5,
+                            "vpcId": "vpc-011a53131c38ccacf"
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.CfnTargetGroup",
+                          "version": "2.32.1"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationTargetGroup",
+                      "version": "2.32.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationListener",
+                  "version": "2.32.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationLoadBalancer",
+              "version": "2.32.1"
+            }
+          },
+          "ALB": {
+            "id": "ALB",
+            "path": "ecs-jenkins-fargate-dev/ALB",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.32.1"
+            }
+          },
+          "Service": {
+            "id": "Service",
+            "path": "ecs-jenkins-fargate-dev/Service",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.32.1"
+            }
+          },
+          "ServiceURL": {
+            "id": "ServiceURL",
+            "path": "ecs-jenkins-fargate-dev/ServiceURL",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.32.1"
+            }
+          },
+          "TaskDefinition": {
+            "id": "TaskDefinition",
+            "path": "ecs-jenkins-fargate-dev/TaskDefinition",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.32.1"
+            }
+          },
+          "LogGroup": {
+            "id": "LogGroup",
+            "path": "ecs-jenkins-fargate-dev/LogGroup",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.32.1"
+            }
+          },
+          "LogGroupURLForPassword": {
+            "id": "LogGroupURLForPassword",
+            "path": "ecs-jenkins-fargate-dev/LogGroupURLForPassword",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.32.1"
+            }
+          },
+          "CDKMetadata": {
+            "id": "CDKMetadata",
+            "path": "ecs-jenkins-fargate-dev/CDKMetadata",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "ecs-jenkins-fargate-dev/CDKMetadata/Default",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.32.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.1.68"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "aws-cdk-lib.Stack",
+          "version": "2.32.1"
+        }
+      }
+    },
+    "constructInfo": {
+      "fqn": "aws-cdk-lib.App",
+      "version": "2.32.1"
+    }
+  }
+}

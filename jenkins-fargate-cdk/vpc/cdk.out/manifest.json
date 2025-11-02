@@ -1,0 +1,299 @@
+{
+  "version": "20.0.0",
+  "artifacts": {
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    },
+    "ecs-vpc-dev.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "ecs-vpc-dev.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "ecs-vpc-dev": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://681747700094/ap-northeast-2",
+      "properties": {
+        "templateFile": "ecs-vpc-dev.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::681747700094:role/cdk-hnb659fds-deploy-role-681747700094-ap-northeast-2",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::681747700094:role/cdk-hnb659fds-cfn-exec-role-681747700094-ap-northeast-2",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-681747700094-ap-northeast-2/10789ef7e7e3e0c55be58346a2b05fe41de503aaaa9bcccde7738d376d88c637.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "ecs-vpc-dev.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::681747700094:role/cdk-hnb659fds-lookup-role-681747700094-ap-northeast-2",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "ecs-vpc-dev.assets"
+      ],
+      "metadata": {
+        "/ecs-vpc-dev/Vpc/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Vpc8378EB38"
+          }
+        ],
+        "/ecs-vpc-dev/Vpc/publicSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcpublicSubnet1Subnet2BB74ED7"
+          }
+        ],
+        "/ecs-vpc-dev/Vpc/publicSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcpublicSubnet1RouteTable15C15F8E"
+          }
+        ],
+        "/ecs-vpc-dev/Vpc/publicSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcpublicSubnet1RouteTableAssociation4E83B6E4"
+          }
+        ],
+        "/ecs-vpc-dev/Vpc/publicSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcpublicSubnet1DefaultRouteB88F9E93"
+          }
+        ],
+        "/ecs-vpc-dev/Vpc/publicSubnet1/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcpublicSubnet1EIP411541E6"
+          }
+        ],
+        "/ecs-vpc-dev/Vpc/publicSubnet1/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcpublicSubnet1NATGatewayA036E8A6"
+          }
+        ],
+        "/ecs-vpc-dev/Vpc/publicSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcpublicSubnet2SubnetE34B022A"
+          }
+        ],
+        "/ecs-vpc-dev/Vpc/publicSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcpublicSubnet2RouteTableC5A6DF77"
+          }
+        ],
+        "/ecs-vpc-dev/Vpc/publicSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcpublicSubnet2RouteTableAssociationCCE257FF"
+          }
+        ],
+        "/ecs-vpc-dev/Vpc/publicSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcpublicSubnet2DefaultRoute732F0BEB"
+          }
+        ],
+        "/ecs-vpc-dev/Vpc/publicSubnet2/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcpublicSubnet2EIP811E07A7"
+          }
+        ],
+        "/ecs-vpc-dev/Vpc/publicSubnet2/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcpublicSubnet2NATGateway4A29FD4F"
+          }
+        ],
+        "/ecs-vpc-dev/Vpc/publicSubnet3/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcpublicSubnet3SubnetDFEF064A"
+          }
+        ],
+        "/ecs-vpc-dev/Vpc/publicSubnet3/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcpublicSubnet3RouteTable80517A9C"
+          }
+        ],
+        "/ecs-vpc-dev/Vpc/publicSubnet3/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcpublicSubnet3RouteTableAssociation61C43F88"
+          }
+        ],
+        "/ecs-vpc-dev/Vpc/publicSubnet3/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcpublicSubnet3DefaultRouteA3904BF0"
+          }
+        ],
+        "/ecs-vpc-dev/Vpc/publicSubnet3/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcpublicSubnet3EIPD9427DC9"
+          }
+        ],
+        "/ecs-vpc-dev/Vpc/publicSubnet3/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcpublicSubnet3NATGatewayB3ABD4B1"
+          }
+        ],
+        "/ecs-vpc-dev/Vpc/privateSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcprivateSubnet1SubnetCEAD3716"
+          }
+        ],
+        "/ecs-vpc-dev/Vpc/privateSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcprivateSubnet1RouteTable1979EACB"
+          }
+        ],
+        "/ecs-vpc-dev/Vpc/privateSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcprivateSubnet1RouteTableAssociationEEBD93CE"
+          }
+        ],
+        "/ecs-vpc-dev/Vpc/privateSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcprivateSubnet1DefaultRouteB506891A"
+          }
+        ],
+        "/ecs-vpc-dev/Vpc/privateSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcprivateSubnet2Subnet2DE7549C"
+          }
+        ],
+        "/ecs-vpc-dev/Vpc/privateSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcprivateSubnet2RouteTable4D0FFC8C"
+          }
+        ],
+        "/ecs-vpc-dev/Vpc/privateSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcprivateSubnet2RouteTableAssociationB691E645"
+          }
+        ],
+        "/ecs-vpc-dev/Vpc/privateSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcprivateSubnet2DefaultRouteBAC3C1C3"
+          }
+        ],
+        "/ecs-vpc-dev/Vpc/privateSubnet3/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcprivateSubnet3SubnetA5AC68D9"
+          }
+        ],
+        "/ecs-vpc-dev/Vpc/privateSubnet3/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcprivateSubnet3RouteTableAF0D9985"
+          }
+        ],
+        "/ecs-vpc-dev/Vpc/privateSubnet3/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcprivateSubnet3RouteTableAssociation88A12983"
+          }
+        ],
+        "/ecs-vpc-dev/Vpc/privateSubnet3/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcprivateSubnet3DefaultRoute5028F7A1"
+          }
+        ],
+        "/ecs-vpc-dev/Vpc/IGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcIGWD7BA715C"
+          }
+        ],
+        "/ecs-vpc-dev/Vpc/VPCGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcVPCGWBF912B6E"
+          }
+        ],
+        "/ecs-vpc-dev/should-create-ssm-parameter.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "shouldcreatessmparameterParameter"
+          }
+        ],
+        "/ecs-vpc-dev/ssm-vcp-id.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ssmvcpidParameter"
+          }
+        ],
+        "/ecs-vpc-dev/VPC": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VPC"
+          }
+        ],
+        "/ecs-vpc-dev/SSMParameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SSMParameter"
+          }
+        ],
+        "/ecs-vpc-dev/SSMParameterValue": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SSMParameterValue"
+          }
+        ],
+        "/ecs-vpc-dev/SSMURL": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SSMURL"
+          }
+        ],
+        "/ecs-vpc-dev/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/ecs-vpc-dev/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/ecs-vpc-dev/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "ecs-vpc-dev"
+    }
+  }
+}

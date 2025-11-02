@@ -1,0 +1,61 @@
+{
+  "ssm:account=681747700094:parameterName=/jenkins-fargate-cdk/vpc-id:region=ap-northeast-2": "vpc-011a53131c38ccacf",
+  "ssm:account=681747700094:parameterName=/jenkins-fargate-cdk/cluster-securitygroup-id:region=ap-northeast-2": "sg-03e2ce89a4343fbad",
+  "ssm:account=681747700094:parameterName=/jenkins-fargate-cdk/task-execution-role-arn:region=ap-northeast-2": "arn:aws:iam::681747700094:role/JenkinsECSFargateTaskExecutionRole",
+  "ssm:account=681747700094:parameterName=/jenkins-fargate-cdk/default-task-role-arn:region=ap-northeast-2": "arn:aws:iam::681747700094:role/JenkinsECSFargateDefaultTaskRole",
+  "vpc-provider:account=681747700094:filter.vpc-id=vpc-011a53131c38ccacf:region=ap-northeast-2:returnAsymmetricSubnets=true": {
+    "vpcId": "vpc-011a53131c38ccacf",
+    "vpcCidrBlock": "10.100.0.0/16",
+    "availabilityZones": [],
+    "subnetGroups": [
+      {
+        "name": "public",
+        "type": "Public",
+        "subnets": [
+          {
+            "subnetId": "subnet-0e89cb4d7673696dd",
+            "cidr": "10.100.0.0/20",
+            "availabilityZone": "ap-northeast-2a",
+            "routeTableId": "rtb-0a897edd3f00dc23f"
+          },
+          {
+            "subnetId": "subnet-04c9c8e7a35e8652c",
+            "cidr": "10.100.16.0/20",
+            "availabilityZone": "ap-northeast-2b",
+            "routeTableId": "rtb-059c989e09ae263ec"
+          },
+          {
+            "subnetId": "subnet-04cfddbfd8e443f61",
+            "cidr": "10.100.32.0/20",
+            "availabilityZone": "ap-northeast-2c",
+            "routeTableId": "rtb-05599a5bfbd7fde91"
+          }
+        ]
+      },
+      {
+        "name": "private",
+        "type": "Private",
+        "subnets": [
+          {
+            "subnetId": "subnet-0bc4e9f93301b84da",
+            "cidr": "10.100.48.0/20",
+            "availabilityZone": "ap-northeast-2a",
+            "routeTableId": "rtb-031574f20dd9d7146"
+          },
+          {
+            "subnetId": "subnet-087cb9b8623bccf4d",
+            "cidr": "10.100.64.0/20",
+            "availabilityZone": "ap-northeast-2b",
+            "routeTableId": "rtb-0faf8a79c9a8de6a4"
+          },
+          {
+            "subnetId": "subnet-00109d9cbdcb6ba21",
+            "cidr": "10.100.80.0/20",
+            "availabilityZone": "ap-northeast-2c",
+            "routeTableId": "rtb-09ff2981ed78d3dba"
+          }
+        ]
+      }
+    ]
+  }
+}

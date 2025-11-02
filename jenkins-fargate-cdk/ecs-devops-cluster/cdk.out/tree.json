@@ -1,0 +1,286 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree",
+        "constructInfo": {
+          "fqn": "constructs.Construct",
+          "version": "10.1.68"
+        }
+      },
+      "ecs-devops-cluster-devops-fargate-dev": {
+        "id": "ecs-devops-cluster-devops-fargate-dev",
+        "path": "ecs-devops-cluster-devops-fargate-dev",
+        "children": {
+          "vpc": {
+            "id": "vpc",
+            "path": "ecs-devops-cluster-devops-fargate-dev/vpc",
+            "children": {
+              "publicSubnet1": {
+                "id": "publicSubnet1",
+                "path": "ecs-devops-cluster-devops-fargate-dev/vpc/publicSubnet1",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.32.1"
+                }
+              },
+              "publicSubnet2": {
+                "id": "publicSubnet2",
+                "path": "ecs-devops-cluster-devops-fargate-dev/vpc/publicSubnet2",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.32.1"
+                }
+              },
+              "publicSubnet3": {
+                "id": "publicSubnet3",
+                "path": "ecs-devops-cluster-devops-fargate-dev/vpc/publicSubnet3",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.32.1"
+                }
+              },
+              "privateSubnet1": {
+                "id": "privateSubnet1",
+                "path": "ecs-devops-cluster-devops-fargate-dev/vpc/privateSubnet1",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.32.1"
+                }
+              },
+              "privateSubnet2": {
+                "id": "privateSubnet2",
+                "path": "ecs-devops-cluster-devops-fargate-dev/vpc/privateSubnet2",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.32.1"
+                }
+              },
+              "privateSubnet3": {
+                "id": "privateSubnet3",
+                "path": "ecs-devops-cluster-devops-fargate-dev/vpc/privateSubnet3",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.32.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.Resource",
+              "version": "2.32.1"
+            }
+          },
+          "ecs-cluster": {
+            "id": "ecs-cluster",
+            "path": "ecs-devops-cluster-devops-fargate-dev/ecs-cluster",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "ecs-devops-cluster-devops-fargate-dev/ecs-cluster/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ECS::Cluster",
+                  "aws:cdk:cloudformation:props": {
+                    "clusterName": "devops-fargate-dev",
+                    "clusterSettings": [
+                      {
+                        "name": "containerInsights",
+                        "value": "enabled"
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ecs.CfnCluster",
+                  "version": "2.32.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ecs.Cluster",
+              "version": "2.32.1"
+            }
+          },
+          "ecs-security-group": {
+            "id": "ecs-security-group",
+            "path": "ecs-devops-cluster-devops-fargate-dev/ecs-security-group",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "ecs-devops-cluster-devops-fargate-dev/ecs-security-group/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
+                  "aws:cdk:cloudformation:props": {
+                    "groupDescription": "ECS Fargate shared security group for ALB ingress, cluster: ecs-devops-cluster-devops-fargate-dev/ecs-cluster",
+                    "groupName": "ecssg-devops-fargate-dev",
+                    "securityGroupEgress": [
+                      {
+                        "cidrIp": "0.0.0.0/0",
+                        "description": "Allow all outbound traffic by default",
+                        "ipProtocol": "-1"
+                      }
+                    ],
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "ecssg-devops-fargate-dev"
+                      },
+                      {
+                        "key": "Stage",
+                        "value": "dev"
+                      }
+                    ],
+                    "vpcId": "vpc-011a53131c38ccacf"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroup",
+                  "version": "2.32.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ec2.SecurityGroup",
+              "version": "2.32.1"
+            }
+          },
+          "Cluster": {
+            "id": "Cluster",
+            "path": "ecs-devops-cluster-devops-fargate-dev/Cluster",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.32.1"
+            }
+          },
+          "ECS Security Group ID": {
+            "id": "ECS Security Group ID",
+            "path": "ecs-devops-cluster-devops-fargate-dev/ECS Security Group ID",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.32.1"
+            }
+          },
+          "ssm-cluster-name": {
+            "id": "ssm-cluster-name",
+            "path": "ecs-devops-cluster-devops-fargate-dev/ssm-cluster-name",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "ecs-devops-cluster-devops-fargate-dev/ssm-cluster-name/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::SSM::Parameter",
+                  "aws:cdk:cloudformation:props": {
+                    "type": "String",
+                    "value": {
+                      "Ref": "ecscluster7830E7B5"
+                    },
+                    "name": "/jenkins-fargate-cdk/cluster-name"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ssm.CfnParameter",
+                  "version": "2.32.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ssm.StringParameter",
+              "version": "2.32.1"
+            }
+          },
+          "ssm-cluster-arn": {
+            "id": "ssm-cluster-arn",
+            "path": "ecs-devops-cluster-devops-fargate-dev/ssm-cluster-arn",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "ecs-devops-cluster-devops-fargate-dev/ssm-cluster-arn/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::SSM::Parameter",
+                  "aws:cdk:cloudformation:props": {
+                    "type": "String",
+                    "value": {
+                      "Fn::GetAtt": [
+                        "ecscluster7830E7B5",
+                        "Arn"
+                      ]
+                    },
+                    "name": "/jenkins-fargate-cdk/cluster-arn"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ssm.CfnParameter",
+                  "version": "2.32.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ssm.StringParameter",
+              "version": "2.32.1"
+            }
+          },
+          "ssm-cluster-securitygroup-id": {
+            "id": "ssm-cluster-securitygroup-id",
+            "path": "ecs-devops-cluster-devops-fargate-dev/ssm-cluster-securitygroup-id",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "ecs-devops-cluster-devops-fargate-dev/ssm-cluster-securitygroup-id/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::SSM::Parameter",
+                  "aws:cdk:cloudformation:props": {
+                    "type": "String",
+                    "value": {
+                      "Fn::GetAtt": [
+                        "ecssecuritygroupE15CB9D2",
+                        "GroupId"
+                      ]
+                    },
+                    "name": "/jenkins-fargate-cdk/cluster-securitygroup-id"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ssm.CfnParameter",
+                  "version": "2.32.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ssm.StringParameter",
+              "version": "2.32.1"
+            }
+          },
+          "CDKMetadata": {
+            "id": "CDKMetadata",
+            "path": "ecs-devops-cluster-devops-fargate-dev/CDKMetadata",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "ecs-devops-cluster-devops-fargate-dev/CDKMetadata/Default",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.32.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.1.68"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "aws-cdk-lib.Stack",
+          "version": "2.32.1"
+        }
+      }
+    },
+    "constructInfo": {
+      "fqn": "aws-cdk-lib.App",
+      "version": "2.32.1"
+    }
+  }
+}

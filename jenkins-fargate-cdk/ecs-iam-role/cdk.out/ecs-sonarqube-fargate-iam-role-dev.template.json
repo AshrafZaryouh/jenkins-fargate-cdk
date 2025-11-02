@@ -1,0 +1,210 @@
+{
+ "Description": "ECS Fargate IAM Role",
+ "Resources": {
+  "taskexecutionrole7BB27090": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+       ]
+      ]
+     }
+    ],
+    "RoleName": "JenkinsECSFargateTaskExecutionRole"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-sonarqube-fargate-iam-role-dev/task-execution-role/Resource"
+   }
+  },
+  "defaulttaskrole40ECA4B5": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AWSXrayWriteOnlyAccess"
+       ]
+      ]
+     },
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonSSMReadOnlyAccess"
+       ]
+      ]
+     }
+    ],
+    "Policies": [
+     {
+      "PolicyDocument": {
+       "Statement": [
+        {
+         "Action": [
+          "ssmmessages:CreateControlChannel",
+          "ssmmessages:CreateDataChannel",
+          "ssmmessages:OpenControlChannel",
+          "ssmmessages:OpenDataChannel"
+         ],
+         "Effect": "Allow",
+         "Resource": "*"
+        }
+       ],
+       "Version": "2012-10-17"
+      },
+      "PolicyName": "ECSExec"
+     }
+    ],
+    "RoleName": "JenkinsECSFargateDefaultTaskRole"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-sonarqube-fargate-iam-role-dev/default-task-role/Resource"
+   }
+  },
+  "ssmtaskexecutionrole6C41D00D": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "taskexecutionrole7BB27090",
+      "Arn"
+     ]
+    },
+    "Name": "/jenkins-fargate-cdk/task-execution-role-arn"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-sonarqube-fargate-iam-role-dev/ssm-task-execution-role/Resource"
+   }
+  },
+  "ssmdefaulttaskrole6F48E3C3": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "defaulttaskrole40ECA4B5",
+      "Arn"
+     ]
+    },
+    "Name": "/jenkins-fargate-cdk/default-task-role-arn"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-sonarqube-fargate-iam-role-dev/ssm-default-task-role/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/z2LUQ7CIBBEz9J/WKUaL+ABNPUABulqti1g2EU/CHe3aOLX5M3M62HXg+nsm7UbZ73QDcpFrJvVWl0LWQ9liAuq4z20rIrZt0ui8DjbZD0Kprb+odaGpyzPLF8NOebkVjXEEWHizcscwOxh201MpFMOQh5h+OUHIVMGMJIAAAA="
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-sonarqube-fargate-iam-role-dev/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "SSMTaskExecRoleParam": {
+   "Value": {
+    "Ref": "ssmtaskexecutionrole6C41D00D"
+   }
+  },
+  "SSMTaskExecRoleParamValue": {
+   "Value": {
+    "Fn::GetAtt": [
+     "ssmtaskexecutionrole6C41D00D",
+     "Value"
+    ]
+   }
+  },
+  "SSMDefaultTaskRoleParam": {
+   "Value": {
+    "Ref": "ssmdefaulttaskrole6F48E3C3"
+   }
+  },
+  "SSMDefaultTaskRoleParamValue": {
+   "Value": {
+    "Fn::GetAtt": [
+     "ssmdefaulttaskrole6F48E3C3",
+     "Value"
+    ]
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

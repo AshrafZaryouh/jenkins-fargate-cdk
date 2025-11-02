@@ -1,0 +1,131 @@
+{
+  "version": "20.0.0",
+  "artifacts": {
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    },
+    "ecr-jenkins-dev.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "ecr-jenkins-dev.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "ecr-jenkins-dev": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://681747700094/ap-northeast-2",
+      "properties": {
+        "templateFile": "ecr-jenkins-dev.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::681747700094:role/cdk-hnb659fds-deploy-role-681747700094-ap-northeast-2",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::681747700094:role/cdk-hnb659fds-cfn-exec-role-681747700094-ap-northeast-2",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-681747700094-ap-northeast-2/6f7e53c0bbc3f3037b4a9378b32917dedf6cbcaa5abad687ab1307b7bef962f1.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "ecr-jenkins-dev.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::681747700094:role/cdk-hnb659fds-lookup-role-681747700094-ap-northeast-2",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "ecr-jenkins-dev.assets"
+      ],
+      "metadata": {
+        "/ecr-jenkins-dev/jenkins-dev/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "jenkinsdevCA9F164B"
+          }
+        ],
+        "/ecr-jenkins-dev/ecr-deploy/CustomResource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecrdeployCustomResource01ADF755"
+          }
+        ],
+        "/ecr-jenkins-dev/Custom::CDKECRDeploymentbd07c930edb94112a20f03f096f53666512MiB/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomCDKECRDeploymentbd07c930edb94112a20f03f096f53666512MiBServiceRole8C8B0491"
+          }
+        ],
+        "/ecr-jenkins-dev/Custom::CDKECRDeploymentbd07c930edb94112a20f03f096f53666512MiB/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomCDKECRDeploymentbd07c930edb94112a20f03f096f53666512MiBServiceRoleDefaultPolicy280095F8"
+          }
+        ],
+        "/ecr-jenkins-dev/Custom::CDKECRDeploymentbd07c930edb94112a20f03f096f53666512MiB/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomCDKECRDeploymentbd07c930edb94112a20f03f096f53666512MiB28EAD8E4"
+          }
+        ],
+        "/ecr-jenkins-dev/jenkins-dev-codecommit/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "jenkinsdevcodecommit23C05B29"
+          }
+        ],
+        "/ecr-jenkins-dev/ssm-codecommit-arn/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ssmcodecommitarn25A3B452"
+          }
+        ],
+        "/ecr-jenkins-dev/ssm-ecr-repo-name/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ssmecrreponame20B7D1FA"
+          }
+        ],
+        "/ecr-jenkins-dev/ssm-ecr-repo-arn/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ssmecrrepoarn5E05A9CF"
+          }
+        ],
+        "/ecr-jenkins-dev/EcrUri": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcrUri"
+          }
+        ],
+        "/ecr-jenkins-dev/CodeCommitRepoUrl": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CodeCommitRepoUrl"
+          }
+        ],
+        "/ecr-jenkins-dev/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/ecr-jenkins-dev/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/ecr-jenkins-dev/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "ecr-jenkins-dev"
+    }
+  }
+}

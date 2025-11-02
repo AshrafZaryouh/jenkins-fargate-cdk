@@ -1,0 +1,369 @@
+{
+ "Description": "ECR: jenkins-dev",
+ "Resources": {
+  "jenkinsdevCA9F164B": {
+   "Type": "AWS::ECR::Repository",
+   "Properties": {
+    "RepositoryName": "jenkins-dev",
+    "Tags": [
+     {
+      "Key": "Stage",
+      "Value": "dev"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "ecr-jenkins-dev/jenkins-dev/Resource"
+   }
+  },
+  "ecrdeployCustomResource01ADF755": {
+   "Type": "Custom::CDKBucketDeployment",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "CustomCDKECRDeploymentbd07c930edb94112a20f03f096f53666512MiB28EAD8E4",
+      "Arn"
+     ]
+    },
+    "SrcImage": {
+     "Fn::Join": [
+      "",
+      [
+       "docker://",
+       {
+        "Fn::Sub": "681747700094.dkr.ecr.ap-northeast-2.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-681747700094-ap-northeast-2:537d54b4c9805fded21798400b36cf6fe5c5ad27a46d4d53465465996827dff4"
+       }
+      ]
+     ]
+    },
+    "DestImage": {
+     "Fn::Join": [
+      "",
+      [
+       "docker://",
+       {
+        "Fn::Select": [
+         4,
+         {
+          "Fn::Split": [
+           ":",
+           {
+            "Fn::GetAtt": [
+             "jenkinsdevCA9F164B",
+             "Arn"
+            ]
+           }
+          ]
+         }
+        ]
+       },
+       ".dkr.ecr.",
+       {
+        "Fn::Select": [
+         3,
+         {
+          "Fn::Split": [
+           ":",
+           {
+            "Fn::GetAtt": [
+             "jenkinsdevCA9F164B",
+             "Arn"
+            ]
+           }
+          ]
+         }
+        ]
+       },
+       ".",
+       {
+        "Ref": "AWS::URLSuffix"
+       },
+       "/",
+       {
+        "Ref": "jenkinsdevCA9F164B"
+       },
+       ":latest"
+      ]
+     ]
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "ecr-jenkins-dev/ecr-deploy/CustomResource/Default"
+   }
+  },
+  "CustomCDKECRDeploymentbd07c930edb94112a20f03f096f53666512MiBServiceRole8C8B0491": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecr-jenkins-dev/Custom::CDKECRDeploymentbd07c930edb94112a20f03f096f53666512MiB/ServiceRole/Resource"
+   }
+  },
+  "CustomCDKECRDeploymentbd07c930edb94112a20f03f096f53666512MiBServiceRoleDefaultPolicy280095F8": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "ecr:GetAuthorizationToken",
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:GetDownloadUrlForLayer",
+        "ecr:GetRepositoryPolicy",
+        "ecr:DescribeRepositories",
+        "ecr:ListImages",
+        "ecr:DescribeImages",
+        "ecr:BatchGetImage",
+        "ecr:ListTagsForResource",
+        "ecr:DescribeImageScanFindings",
+        "ecr:InitiateLayerUpload",
+        "ecr:UploadLayerPart",
+        "ecr:CompleteLayerUpload",
+        "ecr:PutImage"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "s3:GetObject",
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "CustomCDKECRDeploymentbd07c930edb94112a20f03f096f53666512MiBServiceRoleDefaultPolicy280095F8",
+    "Roles": [
+     {
+      "Ref": "CustomCDKECRDeploymentbd07c930edb94112a20f03f096f53666512MiBServiceRole8C8B0491"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecr-jenkins-dev/Custom::CDKECRDeploymentbd07c930edb94112a20f03f096f53666512MiB/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "CustomCDKECRDeploymentbd07c930edb94112a20f03f096f53666512MiB28EAD8E4": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-681747700094-ap-northeast-2",
+     "S3Key": "c2982dfca75630909eb8dfd1565ecfd7198d5ef22be8b19fa77531f5071a8c22.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "CustomCDKECRDeploymentbd07c930edb94112a20f03f096f53666512MiBServiceRole8C8B0491",
+      "Arn"
+     ]
+    },
+    "Handler": "main",
+    "MemorySize": 512,
+    "Runtime": "go1.x",
+    "Timeout": 900
+   },
+   "DependsOn": [
+    "CustomCDKECRDeploymentbd07c930edb94112a20f03f096f53666512MiBServiceRoleDefaultPolicy280095F8",
+    "CustomCDKECRDeploymentbd07c930edb94112a20f03f096f53666512MiBServiceRole8C8B0491"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ecr-jenkins-dev/Custom::CDKECRDeploymentbd07c930edb94112a20f03f096f53666512MiB/Resource",
+    "aws:asset:path": "asset.c2982dfca75630909eb8dfd1565ecfd7198d5ef22be8b19fa77531f5071a8c22",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "jenkinsdevcodecommit23C05B29": {
+   "Type": "AWS::CodeCommit::Repository",
+   "Properties": {
+    "RepositoryName": "jenkins-dev",
+    "Tags": [
+     {
+      "Key": "Stage",
+      "Value": "dev"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecr-jenkins-dev/jenkins-dev-codecommit/Resource"
+   }
+  },
+  "ssmcodecommitarn25A3B452": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "jenkinsdevcodecommit23C05B29",
+      "Arn"
+     ]
+    },
+    "Name": "/jenkins-fargate-cdk/codecommit-arn"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecr-jenkins-dev/ssm-codecommit-arn/Resource"
+   }
+  },
+  "ssmecrreponame20B7D1FA": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Type": "String",
+    "Value": {
+     "Ref": "jenkinsdevCA9F164B"
+    },
+    "Name": "/jenkins-fargate-cdk/ecr-repo-name"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecr-jenkins-dev/ssm-ecr-repo-name/Resource"
+   }
+  },
+  "ssmecrrepoarn5E05A9CF": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "jenkinsdevCA9F164B",
+      "Arn"
+     ]
+    },
+    "Name": "/jenkins-fargate-cdk/ecr-repo-arn"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecr-jenkins-dev/ssm-ecr-repo-arn/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/12Q0U7DMAxFv2XvbqAr4p0NTeKJqXzAlKWmytrEU+yAUJV/J01VNvHke53k+jhb1WxVvdHfXJluqEZ7VtOHaDNAbp0mNOGkmVFYvZIZMLw53ePL3IF8pqYWr8RWKPzsNCPcLOw//c0lGLU7dzqHW9+PKOQP0Rux5OFP5BerTmC1y+k0Ygma65FGa0ruohJws8ItRNyoXcyUUlgMdWjIOSv3mP+5mN28cchYRx20Q8FQZqwmJSjp+Vf6fAn2kYVci0wxmIXuTr9HuUZJ4PNwdeGHr/pZ1U/qcXNha6sQvViHql3qLxodlC59AQAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecr-jenkins-dev/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "EcrUri": {
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      {
+       "Fn::Select": [
+        4,
+        {
+         "Fn::Split": [
+          ":",
+          {
+           "Fn::GetAtt": [
+            "jenkinsdevCA9F164B",
+            "Arn"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      ".dkr.ecr.",
+      {
+       "Fn::Select": [
+        3,
+        {
+         "Fn::Split": [
+          ":",
+          {
+           "Fn::GetAtt": [
+            "jenkinsdevCA9F164B",
+            "Arn"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      ".",
+      {
+       "Ref": "AWS::URLSuffix"
+      },
+      "/",
+      {
+       "Ref": "jenkinsdevCA9F164B"
+      }
+     ]
+    ]
+   }
+  },
+  "CodeCommitRepoUrl": {
+   "Value": {
+    "Fn::GetAtt": [
+     "jenkinsdevcodecommit23C05B29",
+     "CloneUrlHttp"
+    ]
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

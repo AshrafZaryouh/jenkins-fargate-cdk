@@ -1,0 +1,151 @@
+{
+ "Description": "ECS Fargate cluster, cluster name: devops-fargate-dev",
+ "Resources": {
+  "ecscluster7830E7B5": {
+   "Type": "AWS::ECS::Cluster",
+   "Properties": {
+    "ClusterName": "devops-fargate-dev",
+    "ClusterSettings": [
+     {
+      "Name": "containerInsights",
+      "Value": "enabled"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-devops-cluster-devops-fargate-dev/ecs-cluster/Resource"
+   }
+  },
+  "ecssecuritygroupE15CB9D2": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "ECS Fargate shared security group for ALB ingress, cluster: ecs-devops-cluster-devops-fargate-dev/ecs-cluster",
+    "GroupName": "ecssg-devops-fargate-dev",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ecssg-devops-fargate-dev"
+     },
+     {
+      "Key": "Stage",
+      "Value": "dev"
+     }
+    ],
+    "VpcId": "vpc-011a53131c38ccacf"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-devops-cluster-devops-fargate-dev/ecs-security-group/Resource"
+   }
+  },
+  "ssmclustername1CF7734C": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Type": "String",
+    "Value": {
+     "Ref": "ecscluster7830E7B5"
+    },
+    "Name": "/jenkins-fargate-cdk/cluster-name"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-devops-cluster-devops-fargate-dev/ssm-cluster-name/Resource"
+   }
+  },
+  "ssmclusterarnB360F897": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "ecscluster7830E7B5",
+      "Arn"
+     ]
+    },
+    "Name": "/jenkins-fargate-cdk/cluster-arn"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-devops-cluster-devops-fargate-dev/ssm-cluster-arn/Resource"
+   }
+  },
+  "ssmclustersecuritygroupid06B5375F": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "ecssecuritygroupE15CB9D2",
+      "GroupId"
+     ]
+    },
+    "Name": "/jenkins-fargate-cdk/cluster-securitygroup-id"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-devops-cluster-devops-fargate-dev/ssm-cluster-securitygroup-id/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/1VNSw6CMBA9C/syChovwMKlBg5gahlN+RQy09GYpneXRjRx9X5575WwK6HI9JNz0/b5YK8QGq9Nr2rkScigWrJLQMMQqkHYI6nq5lYaFZpyaaARsv51pEnmFP8ZUTGPaZasu5816RHXlZ+IMcmT+Fl8Yt/zqNzUInS8eRQHKPawzTq2Nidx3o4I9QffEx+eqMYAAAA="
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-devops-cluster-devops-fargate-dev/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "Cluster": {
+   "Value": {
+    "Ref": "ecscluster7830E7B5"
+   }
+  },
+  "ECSSecurityGroupID": {
+   "Value": {
+    "Fn::GetAtt": [
+     "ecssecuritygroupE15CB9D2",
+     "GroupId"
+    ]
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

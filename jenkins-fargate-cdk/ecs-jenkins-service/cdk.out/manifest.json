@@ -1,0 +1,227 @@
+{
+  "version": "20.0.0",
+  "artifacts": {
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    },
+    "ecs-jenkins-fargate-dev.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "ecs-jenkins-fargate-dev.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "ecs-jenkins-fargate-dev": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://681747700094/ap-northeast-2",
+      "properties": {
+        "templateFile": "ecs-jenkins-fargate-dev.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::681747700094:role/cdk-hnb659fds-deploy-role-681747700094-ap-northeast-2",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::681747700094:role/cdk-hnb659fds-cfn-exec-role-681747700094-ap-northeast-2",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-681747700094-ap-northeast-2/27e255d2d5bd683e03fcca329ff047211d2409f47c13c3ac25c7f52bbb0334f5.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "ecs-jenkins-fargate-dev.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::681747700094:role/cdk-hnb659fds-lookup-role-681747700094-ap-northeast-2",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "ecs-jenkins-fargate-dev.assets"
+      ],
+      "metadata": {
+        "/ecs-jenkins-fargate-dev/ecs-security-group/from ecsjenkinsfargatedevalbsgjenkins235592CE:8080": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecssecuritygroupfromecsjenkinsfargatedevalbsgjenkins235592CE808057AEE3DD"
+          }
+        ],
+        "/ecs-jenkins-fargate-dev/Efs/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Efs9E8BF36B"
+          }
+        ],
+        "/ecs-jenkins-fargate-dev/Efs/EfsSecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EfsEfsSecurityGroup6F40EA3B"
+          }
+        ],
+        "/ecs-jenkins-fargate-dev/Efs/EfsSecurityGroup/from ecsjenkinsfargatedevecsfargateserviceSecurityGroupFF0AFDD8:2049": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EfsEfsSecurityGroupfromecsjenkinsfargatedevecsfargateserviceSecurityGroupFF0AFDD82049E3E3F4C2"
+          }
+        ],
+        "/ecs-jenkins-fargate-dev/Efs/EfsMountTarget1": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EfsEfsMountTarget195B2DD2E"
+          }
+        ],
+        "/ecs-jenkins-fargate-dev/Efs/EfsMountTarget2": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EfsEfsMountTarget2315C927F"
+          }
+        ],
+        "/ecs-jenkins-fargate-dev/Efs/EfsMountTarget3": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EfsEfsMountTarget36646B9A0"
+          }
+        ],
+        "/ecs-jenkins-fargate-dev/task-execution-role/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "taskexecutionrolePolicy68CA3FD9"
+          }
+        ],
+        "/ecs-jenkins-fargate-dev/task-role/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "taskrolePolicyFA6CED8E"
+          }
+        ],
+        "/ecs-jenkins-fargate-dev/fargate-task-definition/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "fargatetaskdefinitionE6399C98"
+          }
+        ],
+        "/ecs-jenkins-fargate-dev/AccessPoint/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AccessPointE936DE82"
+          }
+        ],
+        "/ecs-jenkins-fargate-dev/loggroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "loggroup98B39ABC"
+          }
+        ],
+        "/ecs-jenkins-fargate-dev/loggroup/Policy/ResourcePolicy": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "loggroupPolicyResourcePolicy7EBA3E45"
+          }
+        ],
+        "/ecs-jenkins-fargate-dev/ecs-fargate-service/Service": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecsfargateserviceServiceE3D29B82"
+          }
+        ],
+        "/ecs-jenkins-fargate-dev/ecs-fargate-service/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecsfargateserviceSecurityGroupE3570E1C"
+          }
+        ],
+        "/ecs-jenkins-fargate-dev/ecs-fargate-service/SecurityGroup/from ecsjenkinsfargatedevalbsgjenkins235592CE:8080": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecsfargateserviceSecurityGroupfromecsjenkinsfargatedevalbsgjenkins235592CE808089914C6B"
+          }
+        ],
+        "/ecs-jenkins-fargate-dev/ecs-fargate-service/TaskCount/Target/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecsfargateserviceTaskCountTargetEBE720A0"
+          }
+        ],
+        "/ecs-jenkins-fargate-dev/albsg-jenkins/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "albsgjenkinsF6F54C44"
+          }
+        ],
+        "/ecs-jenkins-fargate-dev/alb/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "alb8A8B13C2"
+          }
+        ],
+        "/ecs-jenkins-fargate-dev/alb/https-listener/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "albhttpslistener38FF2581"
+          }
+        ],
+        "/ecs-jenkins-fargate-dev/alb/https-listener/ec2-service-targetGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "albhttpslistenerec2servicetargetGroup679226C2"
+          }
+        ],
+        "/ecs-jenkins-fargate-dev/ALB": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ALB"
+          }
+        ],
+        "/ecs-jenkins-fargate-dev/Service": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Service"
+          }
+        ],
+        "/ecs-jenkins-fargate-dev/ServiceURL": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ServiceURL"
+          }
+        ],
+        "/ecs-jenkins-fargate-dev/TaskDefinition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TaskDefinition"
+          }
+        ],
+        "/ecs-jenkins-fargate-dev/LogGroup": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LogGroup"
+          }
+        ],
+        "/ecs-jenkins-fargate-dev/LogGroupURLForPassword": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LogGroupURLForPassword"
+          }
+        ],
+        "/ecs-jenkins-fargate-dev/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/ecs-jenkins-fargate-dev/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/ecs-jenkins-fargate-dev/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "ecs-jenkins-fargate-dev"
+    }
+  }
+}

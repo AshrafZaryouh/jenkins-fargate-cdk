@@ -1,0 +1,34 @@
+{
+  "version": "20.0.0",
+  "files": {
+    "27e255d2d5bd683e03fcca329ff047211d2409f47c13c3ac25c7f52bbb0334f5": {
+      "source": {
+        "path": "ecs-jenkins-fargate-dev.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "681747700094-ap-northeast-2": {
+          "bucketName": "cdk-hnb659fds-assets-681747700094-ap-northeast-2",
+          "objectKey": "27e255d2d5bd683e03fcca329ff047211d2409f47c13c3ac25c7f52bbb0334f5.json",
+          "region": "ap-northeast-2",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::681747700094:role/cdk-hnb659fds-file-publishing-role-681747700094-ap-northeast-2"
+        }
+      }
+    }
+  },
+  "dockerImages": {
+    "537d54b4c9805fded21798400b36cf6fe5c5ad27a46d4d53465465996827dff4": {
+      "source": {
+        "directory": "asset.537d54b4c9805fded21798400b36cf6fe5c5ad27a46d4d53465465996827dff4"
+      },
+      "destinations": {
+        "681747700094-ap-northeast-2": {
+          "repositoryName": "cdk-hnb659fds-container-assets-681747700094-ap-northeast-2",
+          "imageTag": "537d54b4c9805fded21798400b36cf6fe5c5ad27a46d4d53465465996827dff4",
+          "region": "ap-northeast-2",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::681747700094:role/cdk-hnb659fds-image-publishing-role-681747700094-ap-northeast-2"
+        }
+      }
+    }
+  }
+}

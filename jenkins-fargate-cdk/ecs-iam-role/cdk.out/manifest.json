@@ -1,0 +1,113 @@
+{
+  "version": "20.0.0",
+  "artifacts": {
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    },
+    "ecs-jenkins-fargate-iam-role-dev.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "ecs-jenkins-fargate-iam-role-dev.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "ecs-jenkins-fargate-iam-role-dev": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://681747700094/ap-northeast-2",
+      "properties": {
+        "templateFile": "ecs-jenkins-fargate-iam-role-dev.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::681747700094:role/cdk-hnb659fds-deploy-role-681747700094-ap-northeast-2",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::681747700094:role/cdk-hnb659fds-cfn-exec-role-681747700094-ap-northeast-2",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-681747700094-ap-northeast-2/111477407a6883fe979ca83dc0e787725092a824cf89adba16411722477b73a7.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "ecs-jenkins-fargate-iam-role-dev.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::681747700094:role/cdk-hnb659fds-lookup-role-681747700094-ap-northeast-2",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "ecs-jenkins-fargate-iam-role-dev.assets"
+      ],
+      "metadata": {
+        "/ecs-jenkins-fargate-iam-role-dev/task-execution-role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "taskexecutionrole7BB27090"
+          }
+        ],
+        "/ecs-jenkins-fargate-iam-role-dev/default-task-role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "defaulttaskrole40ECA4B5"
+          }
+        ],
+        "/ecs-jenkins-fargate-iam-role-dev/ssm-task-execution-role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ssmtaskexecutionrole6C41D00D"
+          }
+        ],
+        "/ecs-jenkins-fargate-iam-role-dev/ssm-default-task-role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ssmdefaulttaskrole6F48E3C3"
+          }
+        ],
+        "/ecs-jenkins-fargate-iam-role-dev/SSMTaskExecRoleParam": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SSMTaskExecRoleParam"
+          }
+        ],
+        "/ecs-jenkins-fargate-iam-role-dev/SSMTaskExecRoleParamValue": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SSMTaskExecRoleParamValue"
+          }
+        ],
+        "/ecs-jenkins-fargate-iam-role-dev/SSMDefaultTaskRoleParam": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SSMDefaultTaskRoleParam"
+          }
+        ],
+        "/ecs-jenkins-fargate-iam-role-dev/SSMDefaultTaskRoleParamValue": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SSMDefaultTaskRoleParamValue"
+          }
+        ],
+        "/ecs-jenkins-fargate-iam-role-dev/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/ecs-jenkins-fargate-iam-role-dev/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/ecs-jenkins-fargate-iam-role-dev/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "ecs-jenkins-fargate-iam-role-dev"
+    }
+  }
+}

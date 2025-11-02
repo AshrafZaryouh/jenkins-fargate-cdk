@@ -1,0 +1,20 @@
+{
+  "version": "20.0.0",
+  "files": {
+    "a260e799dc543c4707a787a929fa1910b6433ecfe357d799f802f487c03cf107": {
+      "source": {
+        "path": "ecs-devops-cluster-devops-fargate-dev.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "681747700094-ap-northeast-2": {
+          "bucketName": "cdk-hnb659fds-assets-681747700094-ap-northeast-2",
+          "objectKey": "a260e799dc543c4707a787a929fa1910b6433ecfe357d799f802f487c03cf107.json",
+          "region": "ap-northeast-2",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::681747700094:role/cdk-hnb659fds-file-publishing-role-681747700094-ap-northeast-2"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}
